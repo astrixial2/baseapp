@@ -1,21 +1,28 @@
-import { Input } from '@openware/components';
+import { InputGroup, FormControl } from 'react-bootstrap';
 import * as React from 'react';
 
 export interface CustomInputProps {
     type: string;
     label: string;
-    defaultLabel: string;
+    defaultLabel?: string;
     handleChangeInput: (value: string) => void;
     inputValue: string;
-    handleFocusInput: () => void;
-    classNameLabel: string;
-    classNameInput: string;
+    handleFocusInput?: () => void;
+    classNameLabel?: string;
+    classNameInput?: string;
     placeholder: string;
     autoFocus?: boolean;
     onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-class CustomInput extends React.Component<CustomInputProps> {
+interface OnChangeEvent {
+    target: {
+        value: string;
+    };
+}
+type Props = CustomInputProps;
+
+class CustomInput extends React.Component<Props> {
     public render() {
         const {
             label,
@@ -26,7 +33,6 @@ class CustomInput extends React.Component<CustomInputProps> {
             classNameInput,
             type,
             autoFocus,
-            onKeyPress,
         } = this.props;
 
         return (
@@ -34,19 +40,25 @@ class CustomInput extends React.Component<CustomInputProps> {
                 <label className={classNameLabel}>
                     {inputValue && (label || defaultLabel)}
                 </label>
-                <Input
-                    type={type}
-                    value={inputValue}
-                    placeholder={placeholder}
-                    className={classNameInput}
-                    onFocus={this.props.handleFocusInput}
-                    onBlur={this.props.handleFocusInput}
-                    onChangeValue={this.props.handleChangeInput}
-                    autoFocus={autoFocus}
-                    onKeyPress={onKeyPress}
-                />
+                <InputGroup size="lg">
+                    <FormControl
+                        size="lg"
+                        type={type}
+                        value={inputValue}
+                        placeholder={placeholder}
+                        className={classNameInput}
+                        autoFocus={autoFocus}
+                        onFocus={this.props.handleFocusInput}
+                        onBlur={this.props.handleFocusInput}
+                        onChange={e => this.handleChangeValue(e)}
+                    />
+                </InputGroup>
             </React.Fragment>
         );
+    }
+
+    private handleChangeValue = (e: OnChangeEvent) => {
+        this.props.handleChangeInput(e.target.value);
     }
 }
 

@@ -64,7 +64,6 @@ export class EmailForm extends React.Component<EmailFormProps> {
                                 handleChangeInput={this.props.handleInputEmail}
                                 inputValue={email}
                                 handleFocusInput={this.props.handleFieldFocus}
-                                classNameLabel="cr-email-form__label"
                                 classNameInput="cr-email-form__input"
                                 autoFocus={true}
                             />

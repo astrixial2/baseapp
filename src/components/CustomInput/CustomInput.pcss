@@ -1,0 +1,25 @@
+.input-group > .form-control {
+  background: transparent;
+}
+
+.custom-input-block {
+  height: calc(var(--gap) * 6);
+
+  .input-group {
+    width: 100%;
+
+    .form-control {
+      height: calc(var(--gap) * 6);
+      border-radius: 3px 0 0 3px;
+    }
+  }
+
+  label {
+    background: var(--email-form-bg);
+    width: auto;
+    position: absolute;
+    top: 0px;
+    z-index: 5;
+    margin-top: calc(var(--gap) * (-2));
+  }
+}
